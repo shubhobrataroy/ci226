@@ -41,7 +41,7 @@ class Welcome extends CI_Controller {
 
                 $this->session->set_userdata("username",$this->input->post('username'));
                 $this->session->set_userdata("privilege",'student');
-                $this->load->view('view_success');
+                $this->load->view('view_student');
             }
 
             else
