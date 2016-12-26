@@ -74,23 +74,39 @@ class admin extends CI_Controller
     {
 
 
-        $result=$this->admin_model->getDepartments();
-        $html1 = " <form>
-             <table cellspacing=\"10\">
+        if(empty($_REQUEST)) {
+            $result=$this->admin_model->getDepartments();
+            $this->load->helper('url');
+            $html1 = " <form action='".base_url()."admin/perform_add_course'>
+             <table width='50%' border='1'>
                 <tr>
                   <td>Department</td>
+                  <td>Course Id</td>
                   <td>Course Name</td>
+                  <td>Course Credit</td>
                 </tr>
-                <tr>
+                <tr><td><select>
                 ";
-        $html1= $html1."
-         
+
+            foreach ($result->result() as $row)
+            {
+                $html1 = $html1."<option value='".$row->dname."'>".$row->dname."</option>";
+            }
+
+
+            $html1= $html1."
+                </select></td>
+                <td><input type='text' name='id'></td>
+                <td><input type='text' name='name'></td>
+                <td><input type='text' name='credit'></td>
                </tr>
+               
+               
              </table>
-             
+             <input type='submit' value='Add' />
           </form>
         ";
-        if(empty($_REQUEST)) {
+
             $data['html'] =$html1;
                 ;
         }
@@ -106,6 +122,11 @@ class admin extends CI_Controller
     }
 
 
+    public function perform_add_course()
+    {
+        $data['html']='';
 
+        $this->load->view('view_admin', $data);
+    }
 
 }
