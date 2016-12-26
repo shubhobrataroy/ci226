@@ -77,7 +77,7 @@ class admin extends CI_Controller
         if(empty($_REQUEST)) {
             $result=$this->admin_model->getDepartments();
             $this->load->helper('url');
-            $html1 = " <form action='".base_url()."admin/perform_add_course'>
+            $html1 = " <form action='".base_url()."admin/perform_add_course' method='post'>
              <table width='50%' border='1'>
                 <tr>
                   <td>Department</td>
@@ -85,7 +85,7 @@ class admin extends CI_Controller
                   <td>Course Name</td>
                   <td>Course Credit</td>
                 </tr>
-                <tr><td><select>
+                <tr><td><select name='department'>
                 ";
 
             foreach ($result->result() as $row)
@@ -124,9 +124,12 @@ class admin extends CI_Controller
 
     public function perform_add_course()
     {
-        $data['html']='';
 
+        $this->admin_model->addCourse($this->input->post('department'),$this->input->post('id'),$this->input->post('name'),$this->input->post('credit'));
+        $data['html']="<h3>Updated Course List</h3> ".$this->admin_model->getCourseList($this->input->post('department'));
         $this->load->view('view_admin', $data);
     }
-
+    public function show_course ()
+    {
+    }
 }
