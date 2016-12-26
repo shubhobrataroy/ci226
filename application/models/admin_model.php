@@ -31,4 +31,11 @@ class admin_model extends CI_Model
 
         return $this->db->_error_message();
     }
+
+    public function getDepartments()
+    {
+        $sql= "select * from department";
+        $result = $this->db->query($sql);
+        return $result;
+    }
 }

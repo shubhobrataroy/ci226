@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-
+<?php $this->load->helper('url');
+$path=base_url(); ?>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -19,7 +20,7 @@
 	<br/>
   <div class="login-card">
     <h1>Log-in</h1><br>
-  <form name='myForm' action="" method="post">
+  <form name='myForm' action="<?php echo $path ?>welcome" method="post">
 
     <input type="text" id="user" name="username" placeholder="Username" > <?php echo form_error('username'); ?> <br>
     <input type="password" name="password" id="p" placeholder="Password"> <?php echo form_error('password'); ?><br>

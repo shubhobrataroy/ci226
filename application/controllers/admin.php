@@ -73,18 +73,26 @@ class admin extends CI_Controller
     public function add_course()
     {
 
-        if(empty($_REQUEST)) {
-            $data['html'] =
-                "
-          <form>
+
+        $result=$this->admin_model->getDepartments();
+        $html1 = " <form>
              <table cellspacing=\"10\">
                 <tr>
                   <td>Department</td>
                   <td>Course Name</td>
                 </tr>
+                <tr>
+                ";
+        $html1= $html1."
+         
+               </tr>
              </table>
+             
           </form>
         ";
+        if(empty($_REQUEST)) {
+            $data['html'] =$html1;
+                ;
         }
 
         else
