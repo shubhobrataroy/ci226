@@ -78,7 +78,7 @@ class admin extends CI_Controller
             $result=$this->admin_model->getDepartments();
             $this->load->helper('url');
             $html1 = " <form action='".base_url()."admin/perform_add_course' method='post'>
-             <table width='50%' border='1'>
+             <table width='50%' border='1' class=\"table table-hover\">
                 <tr>
                   <td>Department</td>
                   <td>Course Id</td>
@@ -104,7 +104,8 @@ class admin extends CI_Controller
                
              </table>
              <input type='submit' value='Add' />
-          </form>
+             
+             </form>
         ";
 
             $data['html'] =$html1;
@@ -129,7 +130,51 @@ class admin extends CI_Controller
         $data['html']="<h3>Updated Course List</h3> ".$this->admin_model->getCourseList($this->input->post('department'));
         $this->load->view('view_admin', $data);
     }
-    public function show_course ()
+    public function add_department ()
     {
+        if(empty($_REQUEST)) {
+            $result=$this->admin_model->getDepartments();
+            $this->load->helper('url');
+            $html1 = " <form action='".base_url()."admin/perform_add_department' method='post'>
+             <table width='50%' border='1' class=\"table table-hover\">
+                <tr>
+                  <td>Department Name</td>
+                  
+                </tr>
+               
+                ";
+            foreach($result->result() as $row)
+            {
+                $html1 = $html1." <tr><td>".$row->dname."</td></tr>";
+            }
+
+            $html1= $html1."
+                </tr>
+                <td><input type='text' name='dname'></td>
+               </tr>
+             </table>
+             <input type='submit' value='Add' />
+             
+             </form>
+        ";
+
+            $data['html'] =$html1;
+            ;
+        }
+
+        else
+        {
+            $data['html']='';
+        }
+        $this->session->set_userdata("username",'admin');
+        $this->session->set_userdata("privilege",'admin');
+        $this->load->view('view_admin', $data);
+    }
+
+
+    public function perform_add_department()
+    {
+        $this->admin_model->addDepartment($this->input->post('dname'));
+        $this->add_department();
     }
 }

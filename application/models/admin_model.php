@@ -21,6 +21,10 @@ class admin_model extends CI_Model
 
     public function addDepartment ($dname)
     {
+        $db_debug = $this->db->db_debug;
+        $this->db->db_debug = false;
+        $sql2="CREATE TABLE ".$dname. "( `cid` VARCHAR(20) NOT NULL , `cname` VARCHAR(40) NOT NULL , `ccredit` INT(40) NOT NULL ) ENGINE = InnoDB;
+";
         $sql1="INSERT INTO "."department". " VALUES ('".$dname."')";
         $this->load->database();
         $this->db->query($sql1);
@@ -28,11 +32,11 @@ class admin_model extends CI_Model
 
         if($this->db->_error_message()==NULL | $this->db->_error_message()=="")
         {
-            $this->db->query('create database '.$dname);
+            $this->db->query($sql2);
 
             $this->db->query("ALTER TABLE ".$dname. " ADD PRIMARY KEY (cid)");
         }
-
+        $this->db->db_debug=$db_debug;
         return $this->db->_error_message();
     }
 

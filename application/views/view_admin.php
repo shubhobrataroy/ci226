@@ -37,9 +37,9 @@ $path=base_url()."application/views/"; ?>
         <!-- Upper Buttons -->
         <div class="row btn-block col-md-12 " style="margin: auto;margin-top: 0.3%;">
             <form method="post" action="">
-            <a class='buttonViolate  col-md-2 ' href='<?php echo base_url()."admin/add_course" ?>'>Add Course</a>
-            <input type='button' class='buttonBlack   col-md-2'   value='Add Department'     data-toggle="modal" data-target="#assignTask"/>
-            <input type='button' class='buttonRed col-md-3' id="performanceReport" value='Edit Course' />
+                <a class='buttonViolate  col-md-2 ' href='<?php echo base_url()."admin/add_course" ?>'>Add Course</a>
+                <a class='buttonViolate  col-md-2 ' href='<?php echo base_url()."admin/add_department" ?>'>Add Department</a>
+                <input type='button' class='buttonRed col-md-3' id="performanceReport" value='Edit Course' />
             <input type='button' class='buttonGreen col-md-2' id="manageAcc"  value='View Course' />
             <input type='button' class='buttonBlue col-md-3' id="attendenceReport"  value='Attendence report' />
             </form>
