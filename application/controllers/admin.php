@@ -168,6 +168,7 @@ class admin extends CI_Controller
 
     public function add_schedule()
     {
+        if(!empty($_REQUEST)) {$this->admin_model->addSchedule($this->input->post('cid'),$this->input->post('section'),$this->input->post('starttime'),$this->input->post('endtime'),$this->input->post('semester'),$this->input->post('day'));}
         $data['html']=$this->admin_model->getSchedule();
 
         $this->load->view('view_admin',$data);

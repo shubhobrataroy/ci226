@@ -69,7 +69,18 @@ class admin_model extends CI_Model
 
     public function getCourseByID($cid)
     {
-        $result = $this->db->query("SELECT cname FROM cse union SELECT cname FROM eee union SELECT cname FROM bba where cid='".$cid."'");
+        $dept=$this->getDepartments();
+        $sql="";
+        $i=0;
+        foreach ($dept->result() as $row)
+        {
+            if($i>0){$sql=$sql."union select cname from ".$row->dname." ";}
+            else {$sql=$sql."select cname from ".$row->dname." ";}
+            $i++;
+        }
+        $sql = $sql." where cid='".$cid."'";
+        echo $sql;
+        $result = $this->db->query($sql);
         foreach ($result->result() as $row)
         {
             return $row->cname;
@@ -78,10 +89,12 @@ class admin_model extends CI_Model
 
     public function getSchedule()
     {
-        $html='<table class="table table-hover">
+        $html='<H3>Added Courses</H3>
+                <table class="table table-hover">
                 <tr>
                     <td>Course ID</td>
                     <td>Course Name</td>
+                    <td>Semester</td>
                     <td>Course Section</td>
                     <td>Day</td>
                     <td>Start Time</td>
@@ -96,6 +109,7 @@ class admin_model extends CI_Model
                 <tr>
                     <td>".$row->cid."</td>
                     <td>".$this->getCourseByID($row->cid)."</td>
+                    <td>".$row->semester."</td>
                     <td>".$row->section."</td>
                     <td>".$row->day."</td>
                     <td>".$row->start_time."</td>
@@ -105,6 +119,47 @@ class admin_model extends CI_Model
         }
         $html=$html."</table><h3>Add Schedule</h3>";
 
+        $html=$html.'<form method="post"><table class="table table-hover">
+                <tr>
+                    <td>Course Name</td>
+                    <td>Course Section</td>
+                    <td>Semester</td>
+                    <td>Day</td>
+                    <td>Start Time</td>
+                     <td>End Time</td>
+                </tr>
+                <tr>
+                <td><select name=\'cid\'>
+                ';
+        foreach ($schedule->result() as $row)
+        {
+            $html=$html."<option value='".$row->cid."'>".$this->getCourseByID($row->cid)."</option>";
+        }
+
+
+        $html= $html."
+                </select></td>
+                <td><input type='text' name='section'></td>
+                <td><select name='semester'>
+                    <option value'Fall'>Fall</option>
+                    <option value'Summer'>Summer</option>
+                    <option value'Spring'>Spring</option>
+                </select></td>
+                <td><select name='day'>
+                    <option value'Sunday,Tuesday'>Sunday,Tuesday</option>
+                    <option value'Monday,Wednesday'>Monday,Wednesday</option>
+                    <option value'Saturday,Thursday'>Saturday,Thursday</option>
+                    <option value'Thursday'>Thursday</option>
+                </select></td>
+                <td><input type='time' name='starttime'></td>
+                <td><input type='time' name='endtime'></td>
+               </tr>
+               
+               
+             </table>
+             <input type='submit' value='Add' />
+             
+             </form>";
         return $html;
 
     }
