@@ -47,6 +47,7 @@ class admin_model extends CI_Model
         return $result;
     }
 
+
     public function getCourseList($dname)
     {
         $html='<table class="table table-hover">
@@ -63,5 +64,55 @@ class admin_model extends CI_Model
         }
         $html=$html."</table>";
         return $html;
+    }
+
+
+    public function getCourseByID($cid)
+    {
+        $result = $this->db->query("SELECT cname FROM cse union SELECT cname FROM eee union SELECT cname FROM bba where cid='".$cid."'");
+        foreach ($result->result() as $row)
+        {
+            return $row->cname;
+        }
+    }
+
+    public function getSchedule()
+    {
+        $html='<table class="table table-hover">
+                <tr>
+                    <td>Course ID</td>
+                    <td>Course Name</td>
+                    <td>Course Section</td>
+                    <td>Day</td>
+                    <td>Start Time</td>
+                     <td>End Time</td>
+                </tr>';
+
+        $schedule= $this->db->query("select * from schedule");
+
+        foreach ($schedule->result() as $row)
+        {
+            $html=$html."
+                <tr>
+                    <td>".$row->cid."</td>
+                    <td>".$this->getCourseByID($row->cid)."</td>
+                    <td>".$row->section."</td>
+                    <td>".$row->day."</td>
+                    <td>".$row->start_time."</td>
+                    <td>".$row->end_time."</td>
+                </tr>
+            ";
+        }
+        $html=$html."</table><h3>Add Schedule</h3>";
+
+        return $html;
+
+    }
+
+
+    public function addSchedule ($cid,$section,$start_time,$end_time,$semester,$day)
+    {
+        $sql="INSERT INTO schedule VALUES ('".$cid."','".$section."','".$start_time."','".$end_time."','".$semester."','".$day."')";
+        $this->db->query($sql);
     }
 }

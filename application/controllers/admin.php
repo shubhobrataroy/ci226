@@ -132,10 +132,10 @@ class admin extends CI_Controller
     }
     public function add_department ()
     {
-        if(empty($_REQUEST)) {
+        if(!empty($_REQUEST)) {$this->admin_model->addDepartment($this->input->post('dname'));}
             $result=$this->admin_model->getDepartments();
             $this->load->helper('url');
-            $html1 = " <form action='".base_url()."admin/perform_add_department' method='post'>
+            $html1 = " <form action='' method='post'>
              <table width='50%' border='1' class=\"table table-hover\">
                 <tr>
                   <td>Department Name</td>
@@ -160,21 +160,16 @@ class admin extends CI_Controller
 
             $data['html'] =$html1;
             ;
-        }
 
-        else
-        {
-            $data['html']='';
-        }
         $this->session->set_userdata("username",'admin');
         $this->session->set_userdata("privilege",'admin');
         $this->load->view('view_admin', $data);
     }
 
-
-    public function perform_add_department()
+    public function add_schedule()
     {
-        $this->admin_model->addDepartment($this->input->post('dname'));
-        $this->add_department();
+        $data['html']=$this->admin_model->getSchedule();
+
+        $this->load->view('view_admin',$data);
     }
 }

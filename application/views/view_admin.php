@@ -39,6 +39,7 @@ $path=base_url()."application/views/"; ?>
             <form method="post" action="">
                 <a class='buttonViolate  col-md-2 ' href='<?php echo base_url()."admin/add_course" ?>'>Add Course</a>
                 <a class='buttonViolate  col-md-2 ' href='<?php echo base_url()."admin/add_department" ?>'>Add Department</a>
+                <a class='buttonViolate  col-md-2 ' href='<?php echo base_url()."admin/add_schedule" ?>'>Schedule</a>
                 <input type='button' class='buttonRed col-md-3' id="performanceReport" value='Edit Course' />
             <input type='button' class='buttonGreen col-md-2' id="manageAcc"  value='View Course' />
             <input type='button' class='buttonBlue col-md-3' id="attendenceReport"  value='Attendence report' />
