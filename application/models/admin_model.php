@@ -66,6 +66,23 @@ class admin_model extends CI_Model
         return $html;
     }
 
+    public function getAllCourses()
+    {
+        $dept=$this->getDepartments();
+        $sql="";
+        $i=0;
+        foreach ($dept->result() as $row)
+        {
+            if($i>0){$sql=$sql."union select cname,cid from ".$row->dname." ";}
+            else {$sql=$sql."select cname,cid from ".$row->dname." ";}
+
+            $i++;
+        }
+
+
+        $result = $this->db->query($sql);
+        return $result;
+    }
 
     public function getCourseByID($cid)
     {
@@ -76,10 +93,11 @@ class admin_model extends CI_Model
         {
             if($i>0){$sql=$sql."union select cname from ".$row->dname." ";}
             else {$sql=$sql."select cname from ".$row->dname." ";}
+            $sql = $sql." where cid='".$cid."' ";
             $i++;
         }
-        $sql = $sql." where cid='".$cid."'";
-        echo $sql;
+
+
         $result = $this->db->query($sql);
         foreach ($result->result() as $row)
         {
@@ -102,6 +120,8 @@ class admin_model extends CI_Model
                 </tr>';
 
         $schedule= $this->db->query("select * from schedule");
+
+
 
         foreach ($schedule->result() as $row)
         {
@@ -131,9 +151,10 @@ class admin_model extends CI_Model
                 <tr>
                 <td><select name=\'cid\'>
                 ';
-        foreach ($schedule->result() as $row)
+        $courses=$this->getAllCourses();
+        foreach ($courses->result() as $row)
         {
-            $html=$html."<option value='".$row->cid."'>".$this->getCourseByID($row->cid)."</option>";
+            $html=$html."<option value='".$row->cid."'>".$row->cname."</option>";
         }
 
 
