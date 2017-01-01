@@ -42,8 +42,7 @@ class admin_model extends CI_Model
 
     public function getDepartments()
     {
-        $sql= "select * from department";
-        $result = $this->db->query($sql);
+        $result = $this->db->get('department');
         return $result;
     }
 
@@ -56,8 +55,8 @@ class admin_model extends CI_Model
                     <td>Course Name</td>
                     <td>Course Credit</td>
                 </tr>';
-        $sql= "select * from ".$dname;
-        $result = $this->db->query($sql);
+
+        $result = $this->db->get($dname);
         foreach ($result->result() as $row)
         {
             $html = $html. "<tr><td>".$row->cid."</td><td>".$row->cname."</td><td>".$row->ccredit."</td></tr>";
@@ -119,7 +118,7 @@ class admin_model extends CI_Model
                      <td>End Time</td>
                 </tr>';
 
-        $schedule= $this->db->query("select * from schedule");
+        $schedule= $this->db->get("schedule");
 
 
 
