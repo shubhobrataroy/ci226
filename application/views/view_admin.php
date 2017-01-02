@@ -12,6 +12,8 @@ $path=base_url()."application/views/"; ?>
 <script src="<?php echo $path ?>js/bootstrap.js"></script>
 <meta name="viewport" content="width=device-width">
 
+
+
 <body>
 
     <div class="row">
