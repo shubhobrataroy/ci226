@@ -45,8 +45,8 @@ $path=base_url()."application/views/"; ?>
     <!-- Upper Buttons -->
     <div class="row btn-block col-md-12 " style="margin: auto;margin-top: 0.3%;">
         <form method="post" action="">
-            <a class='buttonViolate  col-md-4 ' href='<?php echo base_url().'admin' ?>'>Make Routine</a>
-            <a class='buttonViolate  col-md-4 ' href=''>Suggested Course</a>
+            <a class='buttonViolate  col-md-4 ' href='<?php echo base_url().'routine' ?>'>Make Routine</a>
+            <a class='buttonViolate  col-md-4 ' href='<?php echo base_url().'suggested' ?>'>Suggested Course</a>
             <a class='buttonViolate  col-md-4 ' href='<?php echo base_url().'profile' ?>'><span style="border-bottom:2px solid blue;">Update Profile</span></a>
         </form>
 
